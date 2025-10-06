@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Produk; // ✅ pastikan ini ada!
+use App\Models\Produk;
 use Illuminate\Http\Request;
 
 class ProdukController extends Controller
@@ -21,37 +21,48 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string',
-            'harga' => 'required|numeric',
-            'stok' => 'required|integer|min:0',
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+            'stock' => 'required|integer|min:0',
         ]);
 
-        Produk::create($request->all());
+        Produk::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'stock' => $request->stock,
+
+
+        ])->except(['_token']);
 
         return redirect()->route('products.index')
-                         ->with('success', 'Produk berhasil ditambahkan.');
+            ->with('success', 'Produk berhasil ditambahkan.');
     }
 
-    public function edit(Produk $produk)
+    public function edit(Produk $products)
     {
-        return view('edit', compact('produk'));
+        return view('update', compact('products'));
     }
 
-
-    public function update(Request $request, Produk $produk)
+    public function update(Request $request, Produk $products)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string',
-            'harga' => 'required|numeric',
-            'stok' => 'required|integer|min:0',
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+            'stock' => 'required|integer|min:0',
         ]);
 
-        $produk->update($request->all());
+        Produk::update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'stock' => $request->stock,
+        ]);
 
         return redirect()->route('products.index')
-                         ->with('success', 'Produk berhasil diperbarui.');
+            ->with('success', 'Produk berhasil diperbarui.');
     }
 
     public function destroy(Produk $produk)
@@ -59,6 +70,6 @@ class ProdukController extends Controller
         $produk->delete();
 
         return redirect()->route('products.index')
-                         ->with('success', 'Produk berhasil dihapus.');
+            ->with('success', 'Produk berhasil dihapus.');
     }
 }

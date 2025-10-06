@@ -1,29 +1,29 @@
-@extends('layouts.app')
+@extends('layout')
 
 @section('content')
 <div class="bg-white shadow mx-auto p-6 rounded-lg max-w-lg">
   <h2 class="mb-4 font-semibold text-gray-800 text-lg">Edit Produk</h2>
 
-  <form action="{{ route('products.update', $product) }}" method="POST" class="space-y-4">
+  <form action="{{ route('products.update', $products) }}" method="GET" class="space-y-4">
     @csrf @method('PUT')
     <div>
       <label class="block font-medium text-gray-700 text-sm">Nama Produk</label>
-      <input type="text" name="name" value="{{ $product->name }}" class="mt-1 border-gray-300 focus:border-indigo-500 rounded-lg focus:ring-indigo-500 w-full" required>
+      <input type="text" name="name" value="{{ $products->name }}" class="mt-1 border-gray-300 focus:border-indigo-500 rounded-lg focus:ring-indigo-500 w-full" required>
     </div>
 
     <div>
       <label class="block font-medium text-gray-700 text-sm">Harga</label>
-      <input type="number" name="price" value="{{ $product->price }}" class="mt-1 border-gray-300 focus:border-indigo-500 rounded-lg focus:ring-indigo-500 w-full" required>
+      <input type="number" name="price" value="{{ $products->price }}" class="mt-1 border-gray-300 focus:border-indigo-500 rounded-lg focus:ring-indigo-500 w-full" required>
     </div>
 
     <div>
       <label class="block font-medium text-gray-700 text-sm">Stok</label>
-      <input type="number" name="stock" value="{{ $product->stock }}" class="mt-1 border-gray-300 focus:border-indigo-500 rounded-lg focus:ring-indigo-500 w-full" required>
+      <input type="number" name="stock" value="{{ $products->stock }}" class="mt-1 border-gray-300 focus:border-indigo-500 rounded-lg focus:ring-indigo-500 w-full" required>
     </div>
 
     <div>
       <label class="block font-medium text-gray-700 text-sm">Deskripsi</label>
-      <textarea name="description" class="mt-1 border-gray-300 focus:border-indigo-500 rounded-lg focus:ring-indigo-500 w-full">{{ $product->description }}</textarea>
+      <textarea name="description" class="mt-1 border-gray-300 focus:border-indigo-500 rounded-lg focus:ring-indigo-500 w-full">{{ $products->description }}</textarea>
     </div>
 
     <div class="flex justify-between items-center pt-4">
